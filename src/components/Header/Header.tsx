@@ -1,26 +1,25 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
+// import logo from './logo.svg';
 import './Header.css';
 
-class Header extends React.Component {
+const initialState = { name: '' }
+type State = Readonly<typeof initialState>
+
+class Header extends Component<object, State> {
+
+  readonly state: State = initialState
+
+  handleChange(event: React.FormEvent<HTMLInputElement>) : void {
+    this.setState({ name: event.currentTarget.value });
+  }
+
   render() {
     return (
-
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+        <p>{this.state.name}</p>
+        <input placeholder="write your name" onChange={this.handleChange.bind(this)}/>
+        <button>Done</button>
       </header>
-
     )
   }
 }
